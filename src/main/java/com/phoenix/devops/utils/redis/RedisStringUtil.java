@@ -1,7 +1,7 @@
 package com.phoenix.devops.utils.redis;
 
+import cn.hutool.core.collection.CollUtil;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ public class RedisStringUtil extends RedisCommonUtil {
      * 获取key键对应的值（GET key）
      *
      * @param key 键
-     * @return
+     * @return 键对应的值
      */
     public Object get(String key) {
         if (null == key)
@@ -125,7 +125,7 @@ public class RedisStringUtil extends RedisCommonUtil {
      * @return key键不存在，返回ture；存在返回false
      */
     public boolean setIfAbsent(String key, Object value) {
-        return redisTemplate.opsForValue().setIfAbsent(key, value);
+        return Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(key, value));
     }
 
     /**
@@ -144,6 +144,6 @@ public class RedisStringUtil extends RedisCommonUtil {
      * @return
      */
     public List<?> multiGet(String... keys) {
-        return redisTemplate.opsForValue().multiGet(CollectionUtils.arrayToList(keys));
+        return redisTemplate.opsForValue().multiGet(CollUtil.toList(keys));
     }
 }

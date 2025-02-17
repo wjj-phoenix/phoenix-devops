@@ -27,7 +27,7 @@ public class RedisSetUtil<T> extends RedisCommonUtil {
      * @return 包含：true；不包含：false
      */
     public boolean isMember(String key, Object value){
-        return redisTemplate.opsForSet().isMember(key, value);
+        return Boolean.TRUE.equals(redisTemplate.opsForSet().isMember(key, value));
     }
 
     /**
@@ -56,7 +56,7 @@ public class RedisSetUtil<T> extends RedisCommonUtil {
     /**
      * 获取 key键 对应的Set集合的长度
      * @param key 键
-     * @return
+     * @return 长度
      */
     public long size(String key){
         return redisTemplate.opsForSet().size(key);

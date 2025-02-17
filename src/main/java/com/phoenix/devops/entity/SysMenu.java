@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户操作日志表 实体类。
+ *  实体类。
  *
  * @author wjj-phoenix
  * @since 2025-02-17
@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("sys_operation_log")
-public class SysOperationLog implements Serializable {
+@Table("sys_menu")
+public class SysMenu implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -36,63 +36,68 @@ public class SysOperationLog implements Serializable {
     private Long id;
 
     /**
-     * 物理主键
+     * 父ID
      */
-    private String uuid;
+    private Long parentId;
 
     /**
-     * 方法描述
+     * 名称
      */
-    private String operation;
+    private String name;
 
     /**
-     * 请求URI
+     * 权限编码
      */
-    private String reqUri;
+    private String code;
 
     /**
-     * 耗时
+     * 图标
      */
-    private Long respTime;
+    private String icon;
 
     /**
-     * 客户端IP
+     * 请求路径
      */
-    private String clientAddr;
+    private String url;
 
     /**
-     * 请求结果
+     * 请求方式
      */
-    private Integer result;
+    private String method;
 
     /**
-     * 参数内容
+     * 类型
      */
-    private String params;
+    private Integer type;
 
     /**
-     * 操作详细描述
+     * 排序
      */
-    private String desc;
+    private Integer sort;
 
     /**
-     * 客户端User-Agent
+     * 是否隐藏
      */
-    private String userAgent;
+    private Integer hidden;
 
     /**
-     * 失败原因
+     * 外链地址
      */
-    private String reason;
+    private String redirect;
 
     /**
-     * 操作人
+     * 描述信息
      */
-    private String operator;
+    private String description;
 
     /**
      * 创建时间
      */
-    private LocalDateTime operatedTime;
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updatedTime;
 
 }

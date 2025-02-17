@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class TokenUtilService {
-
     @Autowired
     private StringRedisTemplate redisTemplate;
 
