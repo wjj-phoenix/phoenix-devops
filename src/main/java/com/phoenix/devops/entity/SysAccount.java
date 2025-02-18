@@ -1,20 +1,21 @@
 package com.phoenix.devops.entity;
 
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
-import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import java.io.Serial;
-
+import com.mybatisflex.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
 /**
- *  实体类。
+ * 实体类。
  *
  * @author wjj-phoenix
  * @since 2025-02-17
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("sys_account")
-public class SysAccount implements Serializable {
+public class SysAccount implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -68,12 +69,12 @@ public class SysAccount implements Serializable {
     /**
      * 用户是否被锁
      */
-    private Integer lock;
+    private Integer locked;
 
     /**
      * 用户是否可用
      */
-    private Integer enable;
+    private Integer enabled;
 
     /**
      * 创建时间
@@ -95,4 +96,38 @@ public class SysAccount implements Serializable {
      */
     private Long createdUser;
 
+    @RelationManyToMany(
+            selfField = "id",
+            joinTable = "sys_account_role", joinSelfColumn = "account_id", joinTargetColumn = "role_id",
+            targetTable = "sys_role", targetField = "id"
+    )
+    private Set<SysRole> roles;
+
+    @Column(ignore = true)
+    private Collection<? extends GrantedAuthority> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities == null ? null : authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return locked == 1;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled == 1;
+    }
 }

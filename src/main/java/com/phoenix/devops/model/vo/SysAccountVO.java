@@ -3,6 +3,7 @@ package com.phoenix.devops.model.vo;
 import com.phoenix.devops.annotation.Immutable;
 import com.phoenix.devops.annotation.UnionUnique;
 import com.phoenix.devops.annotation.Unique;
+import com.phoenix.devops.entity.SysRole;
 import com.phoenix.devops.model.Add;
 import com.phoenix.devops.model.Mod;
 import com.phoenix.devops.service.ISysAccountService;
@@ -34,76 +35,45 @@ public class SysAccountVO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "主键ID")
     private Long id;
-    /**
-     * 用户名
-     */
+
     @Schema(description = "用户名")
     @NotBlank(message = "用户名不能为空", groups = {Add.class})
     @Immutable(message = "用户名字段不能修改", groups = {Mod.class})
     @Unique(service = ISysAccountService.class, field = "username", message = "用户名已存在")
     private String username;
 
-    /**
-     * 头像
-     */
     @Schema(description = "头像")
     private String avatar;
 
-    /**
-     * 邮箱
-     */
     @Schema(description = "邮箱")
     @NotBlank(message = "邮箱不能为空", groups = {Add.class})
     private String email;
 
-    /**
-     * 真实姓名
-     */
     @Schema(description = "真实姓名")
     private String realName;
 
-    /**
-     * 备注
-     */
     @Schema(description = "备注")
     private String remark;
 
-    /**
-     * 用户是否被锁
-     */
     @NotNull(message = "用户状态不能为空", groups = {Add.class, Mod.class})
     @Schema(description = "是否被锁", defaultValue = "1")
-    private Integer lock;
+    private Integer locked;
 
-    /**
-     * 用户是否可用
-     */
     @NotNull(message = "用户状态不能为空", groups = {Add.class, Mod.class})
     @Schema(description = "是否可用", defaultValue = "1")
-    private Integer enable;
+    private Integer enabled;
 
-    /**
-     * 创建时间
-     */
     @Schema(description = "创建时间")
     private LocalDateTime createdTime;
 
-    /**
-     * 更新时间
-     */
     @Schema(description = "更新时间")
     private LocalDateTime updatedTime;
 
-    /**
-     * 最新登录时间
-     */
     @Schema(description = "最新登录时间")
     private LocalDateTime latestLoginTime;
 
-    /**
-     * 创建用户
-     */
     @Schema(description = "创建用户")
     private Long createdUser;
 
@@ -111,7 +81,5 @@ public class SysAccountVO implements Serializable {
     private Set<Long> roleIds;
 
     @Schema(description = "角色编码列表")
-    private Set<String> roles;
-
-    private Set<SysMenuVO> menus;
+    private Set<SysRole> roles;
 }
