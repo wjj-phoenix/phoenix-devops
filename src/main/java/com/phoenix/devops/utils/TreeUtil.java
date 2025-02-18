@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * @author wjj-phoenix
  * @since 2025-02-18
  */
-public class TreeUtil {
+public final class TreeUtil {
     /**
      * 根据所有树节点列表，生成含有所有树形结构的多叉树列表, 列表中每个元素都是顶层根节点
      * <p>如果节点列表中没有顶层根节点, 则父id不在节点列表中也可以算顶层节点</p>

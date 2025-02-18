@@ -1,6 +1,10 @@
 package com.phoenix.devops.enums;
 
+import com.phoenix.devops.lang.Result;
+import jakarta.annotation.Nullable;
 import lombok.Getter;
+
+import java.text.MessageFormat;
 
 /**
  * @author wjj-phoenix
@@ -88,7 +92,25 @@ public enum RespEnum {
     UNKNOWN(9999, "未知异常"),
 
     REPEAT_SUBMIT_ERROR(8888, "您的请求已提交，请不要重复提交或等待片刻再尝试。"),
-    ;
+
+    BLANK_ERROR(1101, "{0}不能为空"),
+    NULL_ERROR(1102, "{0}不能为空"),
+    NOT_NULL_ERROR(1102, "{0}必须为空"),
+    NOT_EXIST_ERROR(1102, "{0}数据库中不存在"),
+    EXIST_ERROR(1102, "{0}数据库中已存在"),
+    PARAM_TYPE_ERROR(1102, "{0}类型错误"),
+    PARAM_FORMAT_ERROR(1102, "{0}格式错误"),
+
+    API_CAPTCHA_INVALID(1102, "验证码已失效，请重新获取"),
+    API_CAPTCHA_COORDINATE_ERROR(1102, "验证失败"),
+    API_CAPTCHA_ERROR(1102, "获取验证码失败,请联系管理员"),
+    API_CAPTCHA_BASEMAP_NULL(1102, "底图未初始化成功，请检查路径"),
+
+    API_REQ_LIMIT_GET_ERROR(1102, "get接口请求次数超限，请稍后再试!"),
+    API_REQ_INVALID(1102, "无效请求，请重新获取验证码"),
+    API_REQ_LOCK_GET_ERROR(1102, "接口验证失败数过多，请稍后再试"),
+    API_REQ_LIMIT_CHECK_ERROR(1102, "check接口请求次数超限，请稍后再试!"),
+    API_REQ_LIMIT_VERIFY_ERROR(1102, "verify请求次数超限!");
 
     /**
      * 状态码
@@ -103,5 +125,16 @@ public enum RespEnum {
     RespEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    /**
+     * 将入参fieldNames与this.desc组合成错误信息
+     * {fieldName}不能为空
+     *
+     * @param fieldNames 入参
+     * @return Result
+     */
+    public Result<Nullable> parseError(Object... fieldNames) {
+        return Result.failure(MessageFormat.format(this.message, fieldNames));
     }
 }
