@@ -1,5 +1,6 @@
 package com.phoenix.devops.model.vo;
 
+import com.phoenix.devops.utils.TreeUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 实体类。
@@ -19,10 +23,12 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysMenuVO implements Serializable {
+public class SysMenuVO implements Serializable, TreeUtil.TreeNode<Long, SysMenuVO> {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "主键ID")
+    private Long id;
     /**
      * 父ID
      */
@@ -88,4 +94,27 @@ public class SysMenuVO implements Serializable {
      */
     @Schema(description = "描述信息")
     private String description;
+
+    /**
+     * 创建时间
+     */
+    @Schema(description = "创建时间")
+    private LocalDateTime createdTime;
+
+    /**
+     * 更新时间
+     */
+    @Schema(description = "更新时间")
+    private LocalDateTime updatedTime;
+
+    /**
+     * 子菜单信息
+     */
+    @Schema(description = "子菜单信息")
+    private List<SysMenuVO> children;
+
+    @Override
+    public boolean root() {
+        return Objects.equals(this.parentId, 0L);
+    }
 }

@@ -43,7 +43,7 @@ public class SelectCommon<T> {
      * @param service   查询实体
      * @return 查询结果
      */
-    public List<T> findAll(String condition, IService<T> service) {
+    public  List<T> findAll(String condition, IService<T> service) {
         return service.list(wrapper(condition));
     }
 
@@ -61,6 +61,5 @@ public class SelectCommon<T> {
             }
             log.info("构造的查询条件: {}", wrapper);
         }
-
     }
 }

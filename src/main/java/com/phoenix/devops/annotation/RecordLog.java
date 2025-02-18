@@ -25,6 +25,8 @@ public @interface RecordLog {
     // 操作对象的id字段名称
     String primaryKey() default "id";
 
+    String title() default "";
+
     // 操作类型 add update delete
     OperationType type() default OperationType.UPDATE;
 }
