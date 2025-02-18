@@ -32,4 +32,12 @@ public final class IPage<T> {
 
     @Parameter(description = "数据")
     private List<T> rows;
+
+    public static <T> IPage<T> of(long page, long size, long total, List<T> rows) {
+        return IPage.<T>builder().page(page).size(size).total(total).rows(rows).build();
+    }
+
+    public static <T> IPage<T> empty() {
+        return of(0, 0, 0, null);
+    }
 }
