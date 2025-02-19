@@ -9,7 +9,7 @@ import java.io.Serial;
  * 用户操作日志表 表定义层。
  *
  * @author wjj-phoenix
- * @since 2025-02-17
+ * @since 2025-02-19
  */
 public class SysOperationLogTableDef extends TableDef {
 

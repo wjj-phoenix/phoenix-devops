@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author wjj-phoenix
- * @since 2025-02-17
+ * @since 2025-02-19
  */
 public class SysAccountTableDef extends TableDef {
 
@@ -27,11 +27,6 @@ public class SysAccountTableDef extends TableDef {
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 用户是否被锁
-     */
-    public final QueryColumn LOCK = new QueryColumn(this, "lock");
-
-    /**
      * 邮箱
      */
     public final QueryColumn EMAIL = new QueryColumn(this, "email");
@@ -42,14 +37,19 @@ public class SysAccountTableDef extends TableDef {
     public final QueryColumn AVATAR = new QueryColumn(this, "avatar");
 
     /**
-     * 用户是否可用
+     * 用户是否被锁
      */
-    public final QueryColumn ENABLE = new QueryColumn(this, "enable");
+    public final QueryColumn LOCKED = new QueryColumn(this, "locked");
 
     /**
      * 备注
      */
     public final QueryColumn REMARK = new QueryColumn(this, "remark");
+
+    /**
+     * 用户是否可用
+     */
+    public final QueryColumn ENABLED = new QueryColumn(this, "enabled");
 
     /**
      * 密码
@@ -94,7 +94,7 @@ public class SysAccountTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USERNAME, PASSWORD, AVATAR, EMAIL, REAL_NAME, REMARK, LOCK, ENABLE, CREATED_TIME, UPDATED_TIME, LATEST_LOGIN_TIME, CREATED_USER};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USERNAME, PASSWORD, AVATAR, EMAIL, REAL_NAME, REMARK, LOCKED, ENABLED, CREATED_TIME, UPDATED_TIME, LATEST_LOGIN_TIME, CREATED_USER};
 
     public SysAccountTableDef() {
         super("", "sys_account");

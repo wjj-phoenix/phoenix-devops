@@ -18,7 +18,7 @@ import java.util.Set;
  * 实体类。
  *
  * @author wjj-phoenix
- * @since 2025-02-17
+ * @since 2025-02-19
  */
 @Data
 @Builder
@@ -74,7 +74,7 @@ public class SysAccount implements Serializable, UserDetails {
     /**
      * 用户是否可用
      */
-    private Integer enabled;
+    private Boolean enabled;
 
     /**
      * 创建时间
@@ -128,6 +128,6 @@ public class SysAccount implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled == 1;
+        return enabled;
     }
 }

@@ -15,10 +15,12 @@ import com.phoenix.devops.lang.IPage;
 import com.phoenix.devops.mapper.SysAccountMapper;
 import com.phoenix.devops.model.vo.PasswordVO;
 import com.phoenix.devops.model.vo.SysAccountVO;
+import com.phoenix.devops.model.vo.SysRoleVO;
 import com.phoenix.devops.service.ISysAccountRoleService;
 import com.phoenix.devops.service.ISysAccountService;
 import com.phoenix.devops.service.ISysRoleService;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -38,6 +40,7 @@ import static com.phoenix.devops.entity.table.SysRoleTableDef.SYS_ROLE;
  * @author wjj-phoenix
  * @since 2025-02-17
  */
+@Slf4j
 @Service
 public class SysAccountServiceImpl extends ServiceImpl<SysAccountMapper, SysAccount> implements ISysAccountService {
     @Resource
@@ -62,20 +65,18 @@ public class SysAccountServiceImpl extends ServiceImpl<SysAccountMapper, SysAcco
         Page<SysAccount> accountPage = new SelectCommon<SysAccount>().findAll(page, limit, condition, this);
         if (CollUtil.isNotEmpty(accountPage.getRecords())) {
             List<SysAccountVO> accountVOS = BeanUtil.copyToList(accountPage.getRecords(), SysAccountVO.class);
-            accountVOS.forEach(accountVO -> {
-                accountVO.setRoles(
-                        new HashSet<>(
-                                roleService.list(
-                                        QueryWrapper.create()
-                                                .select(SYS_ROLE.DEFAULT_COLUMNS)
-                                                .from(SYS_ROLE)
-                                                .leftJoin(SYS_ACCOUNT_ROLE).on(SYS_ACCOUNT_ROLE.ROLE_ID.eq(SYS_ROLE.ID))
-                                                .where(SYS_ACCOUNT_ROLE.ACCOUNT_ID.eq(accountVO.getId()))
-                                )
-                        )
-                );
-            });
-
+            accountVOS.forEach(accountVO -> accountVO.setRoleVOs(
+                    new HashSet<>(
+                            BeanUtil.copyToList(roleService.list(
+                                    QueryWrapper.create()
+                                            .select(SYS_ROLE.DEFAULT_COLUMNS)
+                                            .from(SYS_ROLE)
+                                            .leftJoin(SYS_ACCOUNT_ROLE).on(SYS_ACCOUNT_ROLE.ROLE_ID.eq(SYS_ROLE.ID))
+                                            .where(SYS_ACCOUNT_ROLE.ACCOUNT_ID.eq(accountVO.getId()))
+                            ), SysRoleVO.class)
+                    )
+            ));
+            return IPage.of(accountPage.getPageNumber(), accountPage.getPageSize(), accountPage.getTotalRow(), accountVOS);
         }
         return IPage.empty();
     }

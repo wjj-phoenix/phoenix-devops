@@ -81,7 +81,7 @@ public class SysAccountController {
      * @param condition 条件
      * @return 分页对象
      */
-    @GetMapping("page")
+    @GetMapping()
     @Operation(summary = "分页查询用户信息",
             description = "根据条件【条件可有可无】分页查询用户信息",
             parameters = {

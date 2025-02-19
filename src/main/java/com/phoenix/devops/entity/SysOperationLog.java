@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  * 用户操作日志表 实体类。
  *
  * @author wjj-phoenix
- * @since 2025-02-17
+ * @since 2025-02-19
  */
 @Data
 @Builder

@@ -3,7 +3,6 @@ package com.phoenix.devops.model.vo;
 import com.phoenix.devops.annotation.Immutable;
 import com.phoenix.devops.annotation.UnionUnique;
 import com.phoenix.devops.annotation.Unique;
-import com.phoenix.devops.entity.SysRole;
 import com.phoenix.devops.model.Add;
 import com.phoenix.devops.model.Mod;
 import com.phoenix.devops.service.ISysAccountService;
@@ -59,11 +58,11 @@ public class SysAccountVO implements Serializable {
 
     @NotNull(message = "用户状态不能为空", groups = {Add.class, Mod.class})
     @Schema(description = "是否被锁", defaultValue = "1")
-    private Integer locked;
+    private Boolean locked;
 
     @NotNull(message = "用户状态不能为空", groups = {Add.class, Mod.class})
     @Schema(description = "是否可用", defaultValue = "1")
-    private Integer enabled;
+    private Boolean enabled;
 
     @Schema(description = "创建时间")
     private LocalDateTime createdTime;
@@ -81,5 +80,5 @@ public class SysAccountVO implements Serializable {
     private Set<Long> roleIds;
 
     @Schema(description = "角色编码列表")
-    private Set<SysRole> roles;
+    private Set<SysRoleVO> roleVOs;
 }

@@ -1,23 +1,23 @@
 package com.phoenix.devops.entity;
 
-import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import java.io.Serial;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
- * 实体类。
+ *  实体类。
  *
  * @author wjj-phoenix
- * @since 2025-02-17
+ * @since 2025-02-19
  */
 @Data
 @Builder
@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table("sys_menu")
 public class SysMenu implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -92,13 +93,11 @@ public class SysMenu implements Serializable {
     /**
      * 创建时间
      */
-    @Column(onInsertValue = "now()")
     private LocalDateTime createdTime;
 
     /**
      * 更新时间
      */
-    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime updatedTime;
 
 }
