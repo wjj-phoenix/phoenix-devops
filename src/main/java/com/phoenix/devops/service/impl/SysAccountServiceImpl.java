@@ -76,7 +76,7 @@ public class SysAccountServiceImpl extends ServiceImpl<SysAccountMapper, SysAcco
                             ), SysRoleVO.class)
                     )
             ));
-            return IPage.of(accountPage.getPageNumber(), accountPage.getPageSize(), accountPage.getTotalRow(), accountVOS);
+            return IPage.of(accountPage.getPageNumber(), accountPage.getPageSize(), accountPage.getTotalPage(), accountPage.getTotalRow(), accountVOS);
         }
         return IPage.empty();
     }
